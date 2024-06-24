@@ -77,11 +77,16 @@ fn handle_print<T: fmt::Display>(stack: &Stack<T>) {
     }
 }
 
+fn handle_copy<T: fmt::Display>(stack: &Stack<T>) {
+    unimplemented!();
+}
+
 enum Command {
     Push(String),
     Pop,
     Print,
     Exit,
+    Copy,
     Invalid,
 }
 
@@ -96,6 +101,8 @@ impl Command {
             Command::Print
         } else if trimmed == "exit" || trimmed == "q" {
             Command::Exit
+        } else if trimmed == "copy" || trimmed == "clip" {
+            Command::Copy
         } else {
             Command::Invalid
         }
@@ -126,6 +133,7 @@ fn main() {
             Command::Pop => handle_pop(&mut stack),
             Command::Print => handle_print(&stack),
             Command::Exit => break,
+            Command::Copy => handle_copy(&stack),
             Command::Invalid => println!("Invalid command"),
         }
     }
