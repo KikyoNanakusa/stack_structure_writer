@@ -94,7 +94,7 @@ impl Command {
             Command::Pop
         } else if trimmed == "print" {
             Command::Print
-        } else if trimmed == "exit" {
+        } else if trimmed == "exit" || trimmed == "q" {
             Command::Exit
         } else {
             Command::Invalid
@@ -102,7 +102,19 @@ impl Command {
     }
 }
 
+fn print_instructions() {
+    println!("Welcome to the Stack Interpreter!");
+    println!("You can use the following commands:");
+    println!("  push <item> - Push an item onto the stack");
+    println!("  pop         - Pop an item from the stack");
+    println!("  print       - Print the stack");
+    println!("  exit        - Exit the interpreter");
+    println!();
+}
+
 fn main() {
+    print_instructions();
+
     let mut stack: Stack<String> = Stack::new();
 
     loop {
