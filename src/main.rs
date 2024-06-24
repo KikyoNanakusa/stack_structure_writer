@@ -1,3 +1,4 @@
+use arboard::Clipboard;
 use std::fmt;
 use std::io::{self, Write};
 
@@ -78,7 +79,12 @@ fn handle_print<T: fmt::Display>(stack: &Stack<T>) {
 }
 
 fn handle_copy<T: fmt::Display>(stack: &Stack<T>) {
-    unimplemented!();
+    let mut clipboard = Clipboard::new().unwrap();
+    let stack_str = format!("{}", stack);
+    clipboard
+        .set_text(stack_str)
+        .expect("Failed to set clipboard text");
+    println!("Stack copied to clipboard");
 }
 
 enum Command {
@@ -115,6 +121,7 @@ fn print_instructions() {
     println!("  push <item> - Push an item onto the stack");
     println!("  pop         - Pop an item from the stack");
     println!("  print       - Print the stack");
+    println!("  copy        - Copy the stack to clipboard");
     println!("  exit        - Exit the interpreter");
     println!();
 }
